@@ -1,0 +1,10 @@
+[workspace]
+members = [
+    "opa-go",
+    "opa-go-sys",
+    "opa-rego",
+    "opa-wasm",
+]
+
+[profile.release]
+debug = true
