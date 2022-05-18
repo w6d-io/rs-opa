@@ -106,15 +106,9 @@ impl Policy {
 
         // Eval
         self.instance.functions().eval(ctx_addr)?;
-        println!("debug in");
         let result_addr = self.instance.functions().eval_ctx_get_result(ctx_addr)?;
-        println!("{result_addr:?}");
         let result_json = self.instance.functions().json_dump(result_addr)?;
-        println!("{result_json:?}");
         let result_eval = self.instance.functions().eval(result_addr)?;
-        println!("{result_eval:?}");
-        println!("debug out");
-
         let v= opa_serde::from_instance(&self.instance, result_addr)?;
         Ok(v)
     }
