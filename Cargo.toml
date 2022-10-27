@@ -2,8 +2,8 @@
 members = [
     "opa-go",
     "opa-go-sys",
-    "opa-rego",
-    "opa-wasm",
+    # "opa-rego",
+    # "opa-wasm",
 ]
 
 [profile.release]
