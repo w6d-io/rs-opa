@@ -1,3 +1,2 @@
-pub mod wasm;
 pub mod error;
-
+pub mod wasm;

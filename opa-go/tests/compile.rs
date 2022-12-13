@@ -1,5 +1,5 @@
-use std::{fs, path::PathBuf};
 use opa_go::wasm::Wasm;
+use std::{fs, path::PathBuf};
 
 #[test]
 fn test_opa_compiler_compile() {

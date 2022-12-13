@@ -16,7 +16,7 @@ pub(crate) struct GoError {
 
 impl GoError {
     pub fn new(ptr: *const c_char) -> GoError {
-        GoError{ptr}
+        GoError { ptr }
     }
 }
 
