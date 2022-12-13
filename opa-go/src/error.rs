@@ -1,8 +1,5 @@
-use std::{
-    ffi::CStr,
-    os::raw::{c_char, c_void},
-    fmt::{self, Display},
-};
+use std::ffi::CStr;
+use std::os::raw::{c_char, c_void};
 use thiserror::Error;
 
 use opa_go_sys::*;
@@ -11,13 +8,16 @@ use opa_go_sys::*;
 pub enum Error {
     #[error("error compiling to wasm: {0}")]
     Compile(String),
-    #[error("Go error: {0}")]
-    Go(GoError),
 }
 
-#[derive(Debug)]
-pub struct GoError {
-    pub ptr: *const c_char,
+pub(crate) struct GoError {
+    ptr: *const c_char,
+}
+
+impl GoError {
+    pub fn new(ptr: *const c_char) -> GoError {
+        GoError{ptr}
+    }
 }
 
 impl Drop for GoError {
@@ -28,9 +28,9 @@ impl Drop for GoError {
     }
 }
 
-impl Display for GoError {
-    fn fmt(&self, fmt: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let message = unsafe { CStr::from_ptr(self.ptr).to_string_lossy().into_owned() };
-        write!(fmt, "{}", message)
+impl From<GoError> for Error {
+    fn from(error: GoError) -> Self {
+        let message = unsafe { CStr::from_ptr(error.ptr).to_string_lossy().into_owned() };
+        Self::Compile(message)
     }
 }

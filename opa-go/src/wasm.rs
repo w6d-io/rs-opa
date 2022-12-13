@@ -43,16 +43,12 @@ fn compile(
                 ptr: result.r0 as *const u8,
                 len: result.r1 as usize,
             };
-            let err = GoError {
-                ptr: result.r2 as *const c_char,
-            };
+            let err = GoError::new(result.r2);
             drop(err);
             Ok(r)
         } else if !result.r2.is_null() {
-            let err = GoError {
-                ptr: result.r2 as *const c_char,
-            };
-            Err(Error::Go(err))
+            let err = GoError::new(result.r2);
+            Err(Error::from(err))
         } else if !result.r0.is_null() {
             let r = GoWasm {
                 ptr: result.r0 as *const u8,
