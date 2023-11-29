@@ -5,5 +5,5 @@ authors = ["Mike Yagley <myagley@gmail.com>"]
 edition = "2018"
 
 [build-dependencies]
-bindgen = "0.63"
+bindgen = "0.69"
 gobuild = "0.1.0-alpha.2"

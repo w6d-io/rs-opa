@@ -1,3 +1,4 @@
+use bindgen::CargoCallbacks;
 use std::env;
 use std::path::PathBuf;
 
@@ -10,7 +11,7 @@ fn main() {
     let header = out_path.join("libopa.h");
     let bindings = bindgen::Builder::default()
         .header(header.display().to_string())
-        .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+        .parse_callbacks(Box::new(CargoCallbacks::new()))
         .allowlist_function("Free")
         .allowlist_function("RegoNew")
         .allowlist_function("RegoDrop")

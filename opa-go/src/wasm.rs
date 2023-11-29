@@ -31,7 +31,7 @@ impl Drop for GoWasm {
     }
 }
 
-fn compile(
+fn build_wasm(
     query: GoString,
     data: GoSlice,
     bundles: GoSlice,
@@ -84,7 +84,7 @@ impl<P: AsRef<Path>, S: AsRef<str>> Wasm<P, S> {
         let bundles = GoSlice::new(ptr::null_mut(), 0, 0);
 
         let ignore = GoSlice::new(ptr::null_mut(), 0, 0);
-        let build = compile(query_go, data_slice_go, bundles, ignore)?;
+        let build = build_wasm(query_go, data_slice_go, bundles, ignore)?;
         let bytes = build.into();
         Ok(bytes)
     }
